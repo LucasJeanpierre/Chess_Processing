@@ -1,8 +1,9 @@
 public class Piece {
     private String type;
     private boolean pieceColor;
-    private Case pieceCase;
+    public Case pieceCase;
     private PImage image;
+    private int nbmove = 0;
 
     private boolean handled = false;
 
@@ -12,7 +13,7 @@ public class Piece {
         pieceCase = pieceCase_;
         String image_name = type + getStringColor() + ".png";
         image = loadImage(image_name);
-        image.resize(85,85);
+        image.resize(85, 85);
         imageMode(CENTER);
     }
 
@@ -32,6 +33,12 @@ public class Piece {
         pieceCase = c;
     }
 
+    public void eat() {
+        pieceCase = null;
+    }
+
+
+
     public boolean getHandled() {
         return handled;
     }
@@ -41,16 +48,21 @@ public class Piece {
     }
 
     public void moveTo(int x, int y) {
-        Case c = cases.get(getCaseByXY(x,y));
+        nbmove ++;
+        Case c = cases.get(getCaseByXY(x, y));
+        c.setAsPieceOn(true);
         pieceCase = c;
     }
 
 
     public void showPiece() {
-        if (!handled) {
-           image(image, pieceCase.getX()*100+50, pieceCase.getY()*100+50);
-        } else {
-           image(image, mouseX, mouseY);
+        //if piece still on the board
+        if (pieceCase != null) {
+            if (!handled) {
+                image(image, pieceCase.getX()*100+50, pieceCase.getY()*100+50);
+            } else {
+                image(image, mouseX, mouseY);
+            }
         }
     }
 }

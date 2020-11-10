@@ -1,12 +1,12 @@
-public class Plate {
-    
+public class Board {
 
-    public Plate() {
+
+    public Board() {
         //init cases
         for (int y = 0; y < 8; y++) {
-                for (int x = 0; x < 8; x++) {
-                    cases.add(new Case(x,y));
-                }
+            for (int x = 0; x < 8; x++) {
+                cases.add(new Case(x, y));
+            }
         }
 
         //init pieces
@@ -52,11 +52,11 @@ public class Plate {
         //black pawns
         for (int i = 8; i < 16; i++) {
             pieces.add(new Piece("pawn", false, cases.get(i)));
-        }    
+        }
     }
 
 
-    public void showPlate() {
+    public void showBoard() {
         //show cases
         for (int i = 0; i < cases.size(); i++) {
             Case c = cases.get(i);
@@ -69,6 +69,4 @@ public class Plate {
             p.showPiece();
         }
     }
-
-    
 }
