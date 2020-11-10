@@ -43,7 +43,7 @@ public class Case {
         rect(x*100, y*100, 100, 100);
         if (ismovable) {
             fill(255, 0, 0);
-            ellipse(x*100 +50, y*100 +50, 10, 10);
+            ellipse(x*100 +10, y*100 +10, 10, 10);
         }
     }
 
