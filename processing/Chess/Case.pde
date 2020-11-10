@@ -40,10 +40,10 @@ public class Case {
             fill(black);
         }
 
-        rect(x*100, y*100, 100, 100);
+        rect(x*caseSize, y*caseSize, caseSize, caseSize);
         if (ismovable) {
             fill(255, 0, 0);
-            ellipse(x*100 +10, y*100 +10, 10, 10);
+            ellipse(x*caseSize + caseSize/10, y*caseSize + caseSize/10, caseSize/10, caseSize/10);
         }
     }
 

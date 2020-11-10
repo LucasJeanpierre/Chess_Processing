@@ -3,8 +3,11 @@ Board board;
 ArrayList<Case> cases = new ArrayList<Case>();
 ArrayList<Piece> pieces = new ArrayList<Piece>();
 
+int caseSize;
+
 void setup() {
-    size(800, 800);
+    size(400, 400);
+    caseSize=width/8;
     board = new Board();
 }
 

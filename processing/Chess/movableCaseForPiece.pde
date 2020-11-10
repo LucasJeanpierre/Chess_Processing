@@ -53,7 +53,7 @@ public ArrayList<Case> movableCaseForPiece(Piece p) {
                                 cases_list.add(c);
                             } else if ( (p.pieceCase.y == c.y - 2 ) && (p.nbmove == 0) ) { //if this is the first move of the pawn and the case is 2 case forward
                                 //if their no piece between the case and the piece
-                                if (!cases.get(getCaseByXY(c.x, c.y+1)).asPieceOn()) {
+                                if (!cases.get(getCaseByXY(c.x, c.y-1)).asPieceOn()) {
                                     cases_list.add(c);
                                 }
                             }

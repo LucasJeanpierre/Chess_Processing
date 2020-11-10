@@ -13,7 +13,7 @@ public class Piece {
         pieceCase = pieceCase_;
         String image_name = type + getStringColor() + ".png";
         image = loadImage(image_name);
-        image.resize(85, 85);
+        image.resize(caseSize, caseSize);
         imageMode(CENTER);
     }
 
@@ -59,7 +59,7 @@ public class Piece {
         //if piece still on the board
         if (pieceCase != null) {
             if (!handled) {
-                image(image, pieceCase.getX()*100+50, pieceCase.getY()*100+50);
+                image(image, pieceCase.getX()*caseSize+caseSize/2, pieceCase.getY()*caseSize+caseSize/2);
             } else {
                 image(image, mouseX, mouseY);
             }

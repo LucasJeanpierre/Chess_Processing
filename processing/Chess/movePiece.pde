@@ -5,8 +5,8 @@ ArrayList<Case> tempo = new ArrayList<Case>();
 
 void mousePressed() {
 
-    int x = mouseX/100;
-    int y = mouseY/100;
+    int x = mouseX/caseSize;
+    int y = mouseY/caseSize;
 
 
     //get chosen piece
@@ -33,8 +33,8 @@ void mouseReleased() {
         handled = false;
 
         //get relase case
-        int x = mouseX/100;
-        int y = mouseY/100;
+        int x = mouseX/caseSize;
+        int y = mouseY/caseSize;
         Case final_case = cases.get(getCaseByXY(x, y));
 
         //if we can do this move
