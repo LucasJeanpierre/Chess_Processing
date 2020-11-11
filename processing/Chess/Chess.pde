@@ -6,7 +6,7 @@ ArrayList<Piece> pieces = new ArrayList<Piece>();
 int caseSize;
 
 void setup() {
-    size(400, 400);
+    size(800, 800);
     caseSize=width/8;
     board = new Board();
 }
