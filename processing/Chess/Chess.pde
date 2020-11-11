@@ -6,7 +6,7 @@ ArrayList<Piece> pieces = new ArrayList<Piece>();
 int caseSize;
 
 void setup() {
-    size(800, 800);
+    size(400, 400);
     caseSize=width/8;
     board = new Board();
     String[] gameMove = loadStrings("game.txt");
@@ -21,7 +21,7 @@ void draw() {
     //after all the piece to get the handled piece over the other
     if (handled) {
         handledPiece.showPiece();
-        //showAvailableCases();
+        showAvailableCases();
     }
     //printMove();
     //noLoop();

@@ -63,7 +63,7 @@ public class Piece {
         if (pieceCase != null) {
             if (!handled) {
                 if (isCheck) {
-                    tint(255,0,0);
+                    tint(255, 0, 0);
                 } else {
                     noTint();
                 }

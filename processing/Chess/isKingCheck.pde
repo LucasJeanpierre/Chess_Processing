@@ -1,6 +1,6 @@
 public boolean isKingCheck(boolean kingColor) {
     Piece king = pieces.get(getKingByColor(kingColor));
-    for(int i = 0; i < pieces.size(); i++) {
+    for (int i = 0; i < pieces.size(); i++) {
         Piece p = pieces.get(i);
         //if the piece is still on the board
         if (p.pieceCase != null) {
