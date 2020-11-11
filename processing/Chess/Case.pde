@@ -5,7 +5,6 @@ public class Case {
     private int y;
     private String name;
     private boolean asPieceOn;
-    boolean ismovable = false;
 
     private color white = color(200);
     private color black = color(0, 150, 150);
@@ -44,12 +43,6 @@ public class Case {
         }
 
         rect(x*caseSize, y*caseSize, caseSize, caseSize);
-        /*fill(0);
-        text(name, x*caseSize+10, y*caseSize+10);*/
-        if (ismovable) {
-            fill(255, 0, 0);
-            ellipse(x*caseSize + caseSize/10, y*caseSize + caseSize/10, caseSize/10, caseSize/10);
-        }
     }
 
 
