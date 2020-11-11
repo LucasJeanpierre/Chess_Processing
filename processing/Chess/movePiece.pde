@@ -24,7 +24,7 @@ void mousePressed() {
         for (int i = availableCases.size()-1; i >= 0; i--) {
             availableCases.remove(i);
         }
-        println(availableCases.size());
+        
         //show available cases
         for (int i = 0; i < cases.size(); i++) {
             Case c = cases.get(i);
@@ -40,7 +40,7 @@ void mousePressed() {
 
 void mouseReleased() {
 
-    //release piece
+    //if a peace is handled
     if (handled) {
         handledPiece.setHandled(false);
         handled = false;
@@ -50,10 +50,12 @@ void mouseReleased() {
         int y = mouseY/caseSize;
         Case final_case = cases.get(getCaseByXY(x, y));
 
-        //if we can do this move
+        //rebuild the board after show all the available cases
         reset();
         moveFile();
+        //test if the move is available
         if (canMove(handledPiece, final_case)) {
+            //add the move to the game file
             String[] gameMove = loadStrings("game.txt");
             gameMove[0] += "|" + initCase.name + "." + final_case.name;
             saveStrings("game.txt", gameMove);
@@ -62,12 +64,9 @@ void mouseReleased() {
         //remove piece of the memory
         handledPiece = null;
 
-        //remove available cases
-        for (int i = 0; i < availableCases.size(); i++) {
-            availableCases.remove(i);
-        }
     }
 
+    //reset and rebuild the board after had the move to the file
     reset();
     moveFile();
 

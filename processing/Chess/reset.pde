@@ -9,6 +9,7 @@ public void reset() {
         }
     }
 
+    //reset pieces
     for (int i = 0; i < pieces.size(); i++) {
         Piece p = pieces.get(i);
         p.nbmove = 0;

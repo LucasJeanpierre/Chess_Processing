@@ -1,5 +1,6 @@
-
 public void moveTestPiece(String init, String end) {
+    //do a move without write on the game file
+    //allow to try a move without change the game state
     String[] gameMove = loadStrings("game.txt");
     gameMove[0] += "|" + init + "." + end;
 
