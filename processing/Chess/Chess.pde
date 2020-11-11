@@ -31,7 +31,7 @@ void draw() {
         handledPiece.showPiece();
     }
 
-    if (!isCheckMate()) {
+    if (isCheckMate()) {
         println("CheckMate");
         if (isKingCheck(true)) {
             print("Black won");
