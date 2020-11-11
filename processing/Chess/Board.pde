@@ -11,9 +11,9 @@ public class Board {
 
         //init pieces
         //white king
-        pieces.add(new Piece("king", true, cases.get(60)));
+        pieces.add(new King("king", true, cases.get(60)));
         //black king
-        pieces.add(new Piece("king", false, cases.get(4)));
+        pieces.add(new King("king", false, cases.get(4)));
 
         //white queen
         pieces.add(new Piece("queen", true, cases.get(59)));

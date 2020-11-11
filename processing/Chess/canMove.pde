@@ -1,12 +1,12 @@
-public boolean canMove(Piece p, Case c) {
+public boolean canMove(Piece p, Case c1, Case c2) {
     //list of all the cases where the piece can go
     ArrayList<Case> movableCases = movableCaseForPiece(p);
     boolean result;
     //if the case in in the list of available cases
-    if (isInCaseList(c, movableCases)) {
+    if (isInCaseList(c2, movableCases)) {
         //we do the move and test if the king will be check after this move
         //we do it with the test move to not change the game file
-        moveTestPiece(initCase.name, c.name);
+        moveTestPiece(c1.name, c2.name);
         //if the king is not chess after this move it's ok
         if (!isKingCheck(p.pieceColor)) {
             result = true;

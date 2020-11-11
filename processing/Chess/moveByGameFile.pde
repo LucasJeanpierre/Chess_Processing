@@ -42,6 +42,8 @@ public void moveFile() {
                 piece.pieceCase.asPieceOn = false;
                 piece.moveTo(c_final.x, c_final.y);
             }
+            //change player
+            tour=!tour;
         }
     }
 }

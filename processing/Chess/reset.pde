@@ -1,4 +1,5 @@
 public void reset() {
+    tour = true;
     //reset cases
     for (int i = 0; i < cases.size(); i++) {
         Case c = cases.get(i);

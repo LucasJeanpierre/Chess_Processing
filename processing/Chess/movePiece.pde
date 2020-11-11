@@ -12,8 +12,8 @@ void mousePressed() {
     int y = mouseY/caseSize;
 
 
-    //get chosen piece
-    if (getPieceByCase(cases.get(getCaseByXY(x, y))) != -1) {
+    //if the player click on a piece and if the piece has the color od the player who is currently playing
+    if ( (getPieceByCase(cases.get(getCaseByXY(x, y))) != -1) && (pieces.get(getPieceByCase(cases.get(getCaseByXY(x, y)))).pieceColor == tour) ) {
         handledPiece = pieces.get(getPieceByCase(cases.get(getCaseByXY(x, y))));
         initCase = cases.get(getCaseByXY(x, y));
         //set this piece to player hand
@@ -28,7 +28,7 @@ void mousePressed() {
         //show available cases
         for (int i = 0; i < cases.size(); i++) {
             Case c = cases.get(i);
-            if (canMove(handledPiece, c)) {
+            if (canMove(handledPiece, initCase, c)) {
                 availableCases.add(new PVector(c.x*caseSize+caseSize/2, c.y*caseSize+caseSize/2));
             }
         }
@@ -54,7 +54,7 @@ void mouseReleased() {
         reset();
         moveFile();
         //test if the move is available
-        if (canMove(handledPiece, final_case)) {
+        if (canMove(handledPiece, initCase, final_case)) {
             //add the move to the game file
             String[] gameMove = loadStrings("game.txt");
             gameMove[0] += "|" + initCase.name + "." + final_case.name;
@@ -70,12 +70,4 @@ void mouseReleased() {
     reset();
     moveFile();
 
-
-    if (isKingCheck(true)) {
-        Piece king = pieces.get(getKingByColor(true));
-        king.isCheck = true;
-    } else {
-        Piece king = pieces.get(getKingByColor(true));
-        king.isCheck = false;
-    }
 }
