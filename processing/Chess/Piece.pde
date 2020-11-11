@@ -7,6 +7,9 @@ public class Piece {
 
     private boolean handled = false;
 
+    //temporaire
+    public boolean isCheck = false;
+
     public Piece(String type_, boolean pieceColor_, Case pieceCase_) {
         type = type_;
         pieceColor = pieceColor_;
@@ -59,6 +62,11 @@ public class Piece {
         //if piece still on the board
         if (pieceCase != null) {
             if (!handled) {
+                if (isCheck) {
+                    tint(255,0,0);
+                } else {
+                    noTint();
+                }
                 image(image, pieceCase.getX()*caseSize+caseSize/2, pieceCase.getY()*caseSize+caseSize/2);
             } else {
                 image(image, mouseX, mouseY);

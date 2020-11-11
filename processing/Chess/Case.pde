@@ -1,6 +1,9 @@
+char letter[] = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'};
+
 public class Case {
     private int x;
     private int y;
+    private String name;
     private boolean asPieceOn;
     boolean ismovable = false;
 
@@ -41,6 +44,8 @@ public class Case {
         }
 
         rect(x*caseSize, y*caseSize, caseSize, caseSize);
+        /*fill(0);
+        text(name, x*caseSize+10, y*caseSize+10);*/
         if (ismovable) {
             fill(255, 0, 0);
             ellipse(x*caseSize + caseSize/10, y*caseSize + caseSize/10, caseSize/10, caseSize/10);
@@ -51,6 +56,7 @@ public class Case {
     public Case(int x_, int y_) {
         x=x_;
         y=y_;
+        name = letter[x] + str(8-y);
         //if the case is where the piece will pop
         if ( (y <= 1) || (y >= 6) ) {
             asPieceOn = true;

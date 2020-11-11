@@ -43,13 +43,29 @@ void mouseReleased() {
             //we just move the piece and set the old case empy 
             if (!final_case.asPieceOn()) {
                 //move piece to released case
-                handledPiece.pieceCase.asPieceOn = false;
-                handledPiece.moveTo(x, y);
+                
+
+                //move piece on the board
+                //handledPiece.pieceCase.asPieceOn = false;
+                //handledPiece.moveTo(x, y);
+
+                //write in the game file
+                String[] gameMove = loadStrings("game.txt");
+                gameMove[0] += "|" + handledPiece.pieceCase.name + "." + final_case.name;
+                saveStrings("game.txt", gameMove);
             } else { // if their is a piece we need to put the piece out of the board
-                Piece finale_piece = pieces.get(getPieceByCase(final_case));
-                finale_piece.eat();
-                handledPiece.pieceCase.asPieceOn = false;
-                handledPiece.moveTo(x, y);
+
+                //move piece on the board
+                //Piece finale_piece = pieces.get(getPieceByCase(final_case));
+                //finale_piece.eat();
+                //handledPiece.pieceCase.asPieceOn = false;
+                //handledPiece.moveTo(x, y);
+
+
+                //write in the game file
+                String[] gameMove = loadStrings("game.txt");
+                gameMove[0] += "|" + handledPiece.pieceCase.name + "." + final_case.name;
+                saveStrings("game.txt", gameMove);
             }
         }
 
@@ -60,5 +76,16 @@ void mouseReleased() {
             Case c = tempo.get(i);
             c.ismovable = false;
         }
+
+        if(isKingCheck(true)) {
+            Piece king = pieces.get(getKingByColor(true));
+            king.isCheck = true;
+        } else {
+            Piece king = pieces.get(getKingByColor(true));
+            king.isCheck = false;
+        }
     }
+
+    reset();
+    moveFile();
 }
