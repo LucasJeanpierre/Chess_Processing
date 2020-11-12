@@ -1,14 +1,13 @@
-public boolean isKingCheck(boolean kingColor) {
-    Piece king = pieces.get(getKingByColor(kingColor));
+public boolean isCaseCheck(Case c, boolean pieceColor) {
     for (int i = 0; i < pieces.size(); i++) {
         Piece p = pieces.get(i);
         //if the piece is still on the board
-        if ( (p.pieceCase != null) && (p.type != "king") ){
+        if ( (p.pieceCase != null) && (p.type != "king") ) {
             //if the piece is against the king
-            if (p.pieceColor != kingColor) {
+            if (p.pieceColor != pieceColor) {
                 ArrayList<Case> movableCases = movableCaseForPiece(p);
                 //if the piece can eat the king
-                if (isInCaseList(king.pieceCase, movableCases)) {
+                if (isInCaseList(c, movableCases)) {
                     return true;
                 }
             }

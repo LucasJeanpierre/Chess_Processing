@@ -13,7 +13,7 @@ int caseSize;
 boolean tour = true;
 
 void setup() {
-    size(500, 500);
+    size(800, 800);
     caseSize=width/8;
     board = new Board();
     String[] gameMove = loadStrings("game.txt");

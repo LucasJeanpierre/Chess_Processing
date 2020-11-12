@@ -1,73 +1,30 @@
-boolean handled = false;
-Piece handledPiece;
-Case initCase;
+public void movePiece(String init, String end) {
+    //do a move without write on the game file
+    //allow to try a move without change the game state
 
-ArrayList<PVector> availableCases = new ArrayList<PVector>();
-
-void mousePressed() {
-    reset();
-    moveFile();
-
-    int x = mouseX/caseSize;
-    int y = mouseY/caseSize;
-
-
-    //if the player click on a piece and if the piece has the color od the player who is currently playing
-    if ( (getPieceByCase(cases.get(getCaseByXY(x, y))) != -1) && (pieces.get(getPieceByCase(cases.get(getCaseByXY(x, y)))).pieceColor == tour) ) {
-        handledPiece = pieces.get(getPieceByCase(cases.get(getCaseByXY(x, y))));
-        initCase = cases.get(getCaseByXY(x, y));
-        //set this piece to player hand
-        handledPiece.setHandled(true);
-        handled = true;
-
-        //rsemove available cases
-        for (int i = availableCases.size()-1; i >= 0; i--) {
-            availableCases.remove(i);
-        }
-        
-        //show available cases
-        for (int i = 0; i < cases.size(); i++) {
-            Case c = cases.get(i);
-            if (canMove(handledPiece, initCase, c)) {
-                availableCases.add(new PVector(c.x*caseSize+caseSize/2, c.y*caseSize+caseSize/2));
-            }
+    boolean castle = false;
+    //if it's a castle move
+    if ( (init.equals("e1")) || (init.equals("e8")) ) {
+        //all four castle posibility
+        if ( ( (init.equals("e1")) && (end.equals("g1")) ) || ( (init.equals("e1")) && (end.equals("c1")) ) || ( (init.equals("e8")) && (end.equals("g8")) ) || ( (init.equals("e8")) && (end.equals("c8")) ) ) {
+            castle = true;
         }
     }
 
-    reset();
-    moveFile();
-}
+    String[] gameMove = loadStrings("game.txt");
 
-void mouseReleased() {
+    if (!castle) {
+        gameMove[0] += "|" + init + "." + end;
+    } else {
+        gameMove[0] += "|" + init + "." +"castle" + "." + end;
+    }
 
-    //if a peace is handled
-    if (handled) {
-        handledPiece.setHandled(false);
-        handled = false;
-
-        //get relase case
-        int x = mouseX/caseSize;
-        int y = mouseY/caseSize;
-        Case final_case = cases.get(getCaseByXY(x, y));
-
-        //rebuild the board after show all the available cases
+    if (gameMove.length == 1) {
         reset();
-        moveFile();
-        //test if the move is available
-        if (canMove(handledPiece, initCase, final_case)) {
-            //add the move to the game file
-            String[] gameMove = loadStrings("game.txt");
-            gameMove[0] += "|" + initCase.name + "." + final_case.name;
-            saveStrings("game.txt", gameMove);
+        gameMove = split(gameMove[0], "|");
+
+        for (int i = 1; i < gameMove.length; i++) {
+            movePieceByString(gameMove[i]);
         }
-
-        //remove piece of the memory
-        handledPiece = null;
-
     }
-
-    //reset and rebuild the board after had the move to the file
-    reset();
-    moveFile();
-
 }

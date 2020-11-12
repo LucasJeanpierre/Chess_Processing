@@ -381,14 +381,98 @@ public ArrayList<Case> movableCaseForPiece(Piece p) {
                 //if as piece on
                 if (c.asPieceOn()) {
                     //if the piece on the case is not the same color as the current piece
+                    //basic move for the king
                     if (pieces.get(getPieceByCase(c)).pieceColor != p.pieceColor) {
                         if ( ( ( (abs(p.pieceCase.x - c.x) == 0) || (abs(p.pieceCase.x - c.x) == 1) ) ) && ( ( (abs(p.pieceCase.y - c.y) == 0) || (abs(p.pieceCase.y - c.y) == 1) ) ) ) {
                             cases_list.add(c);
                         }
                     }
+
                 } else {
+                    //basic king move
                     if ( ( ( (abs(p.pieceCase.x - c.x) == 0) || (abs(p.pieceCase.x - c.x) == 1) ) ) && ( ( (abs(p.pieceCase.y - c.y) == 0) || (abs(p.pieceCase.y - c.y) == 1) ) ) ) {
                         cases_list.add(c);
+                    } else {
+                        //castle
+                        //if in the same line and 2 cases on left or right
+                        if ( (p.nbmove == 0) && (abs(p.pieceCase.x - c.x) == 2) && (p.pieceCase.y == c.y) ){
+                            //if white king
+                            if (p.pieceColor == true) {
+                                //if white caslte with the h1 rook
+                                if ((p.pieceCase.x - c.x) < 0) {
+                                    //if the rook is still here and no piece between king and rook
+                                    if ( (cases.get(63).asPieceOn) && (cases.get(61).asPieceOn == false) ){
+                                        //get the rook
+                                        Piece rook = pieces.get(getPieceByCase(cases.get(63)));
+                                        //if rook never moved
+                                        if (rook.nbmove == 0) {
+                                            //if the king is not check
+                                            if (!isKingCheck(true)) {
+                                                //if any of the cases between the king and the rook are threaten by opponent pieces
+                                                if ( (!isCaseCheck(cases.get(61), true)) && (!isCaseCheck(cases.get(62), true)) )
+                                                {
+                                                    cases_list.add(c);
+                                                }
+                                            }
+                                        }
+                                    }
+                                } else {//if white caslte with the a1 rook
+                                    //if the rook is still here and no piece between king and rook
+                                    if ( (cases.get(56).asPieceOn) && (cases.get(59).asPieceOn == false) && (cases.get(57).asPieceOn == false) ){
+                                        //get the rook
+                                        Piece rook = pieces.get(getPieceByCase(cases.get(56)));
+                                        //if rook never moved
+                                        if (rook.nbmove == 0) {
+                                            //if the king is not check
+                                            if (!isKingCheck(true)) {
+                                                //if any of the cases between the king and the rook are threaten by opponent pieces
+                                                if ( (!isCaseCheck(cases.get(57), true)) && (!isCaseCheck(cases.get(58), true)) && (!isCaseCheck(cases.get(59), true)) )
+                                                {
+                                                    cases_list.add(c);
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }else if (p.pieceColor==false) {//if black king
+                                //if black caslte with the h8 rook
+                                if ((p.pieceCase.x - c.x) < 0) {
+                                    //if the rook is still here and no piece between king and rook
+                                    if ( (cases.get(7).asPieceOn) && (cases.get(5).asPieceOn == false) ){
+                                        //get the rook
+                                        Piece rook = pieces.get(getPieceByCase(cases.get(7)));
+                                        //if rook never moved
+                                        if (rook.nbmove == 0) {
+                                            //if the king is not check
+                                            if (!isKingCheck(false)) {
+                                                //if any of the cases between the king and the rook are threaten by opponent pieces
+                                                if ( (!isCaseCheck(cases.get(5), false)) && (!isCaseCheck(cases.get(6), false)) )
+                                                {
+                                                    cases_list.add(c);
+                                                }
+                                            }
+                                        }
+                                    }
+                                } else {//if black caslte with the a8 rook
+                                    //if the rook is still here and no piece between king and rook
+                                    if ( (cases.get(0).asPieceOn) && (cases.get(1).asPieceOn == false) && (cases.get(3).asPieceOn == false) ){
+                                        //get the rook
+                                        Piece rook = pieces.get(getPieceByCase(cases.get(0)));
+                                        //if rook never moved
+                                        if (rook.nbmove == 0) {
+                                            //if the king is not check
+                                            if (!isKingCheck(false)) {
+                                                //if any of the cases between the king and the rook are threaten by opponent pieces
+                                                if ( (!isCaseCheck(cases.get(1), false)) && (!isCaseCheck(cases.get(2), false)) && (!isCaseCheck(cases.get(3), false)) )
+                                                {
+                                                    cases_list.add(c);
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }      
+                        }
                     }
                 }
             }
