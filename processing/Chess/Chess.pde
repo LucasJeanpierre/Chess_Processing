@@ -6,6 +6,8 @@
 
 Board board;
 
+AI ai;
+
 ArrayList<Case> cases = new ArrayList<Case>();
 ArrayList<Piece> pieces = new ArrayList<Piece>();
 
@@ -16,6 +18,7 @@ void setup() {
     size(800, 800);
     caseSize=width/8;
     board = new Board();
+    ai = new AI(0);
     String[] gameMove = loadStrings("game.txt");
     gameMove[0] = "_";
     saveStrings("game.txt", gameMove);
@@ -24,11 +27,18 @@ void setup() {
 
 
 void draw() {
+
+    if (!tour) {
+        ai.play();
+        board.showBoard();
+    }
+
     //after all the piece to get the handled piece over the other
     if (handled) {
         board.showBoard();
         showAvailableCases();
         handledPiece.showPiece();
     }
+
 
 }
