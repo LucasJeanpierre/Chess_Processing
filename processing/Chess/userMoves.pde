@@ -77,5 +77,18 @@ void mouseReleased() {
     //reset and rebuild the board after had the move to the file
     reset();
     moveFile();
+    board.showBoard();
+
+
+    //check endgame
+    if (isCheckMate()) {
+        println("CheckMate");
+        if (isKingCheck(true)) {
+            print("Black won");
+        } else {
+            print("White won");
+        }
+        noLoop();
+    }
 
 }

@@ -1,7 +1,7 @@
 /*
 *author : Lucas JEANPIERRE
- *This chess game works with a game file which stock all the move already done during the game
- */
+*This chess game works with a game file which stock all the move already done during the game
+*/
 
 
 Board board;
@@ -19,25 +19,16 @@ void setup() {
     String[] gameMove = loadStrings("game.txt");
     gameMove[0] = "_";
     saveStrings("game.txt", gameMove);
+    board.showBoard();
 }
 
 
 void draw() {
-
-    board.showBoard();
     //after all the piece to get the handled piece over the other
     if (handled) {
+        board.showBoard();
         showAvailableCases();
         handledPiece.showPiece();
     }
 
-    if (isCheckMate()) {
-        println("CheckMate");
-        if (isKingCheck(true)) {
-            print("Black won");
-        } else {
-            print("White won");
-        }
-        noLoop();
-    }
 }
