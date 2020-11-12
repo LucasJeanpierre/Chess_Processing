@@ -36,15 +36,22 @@ public void reset() {
 
     int nbCase = 48;
 
+    //replace pawn
+    //reset pawn were became queen
     for (int i = 16; i < 24; i++) {
-        pieces.get(i).pieceCase = cases.get(nbCase);
+        Piece p = pieces.get(i);
+        p.pieceCase = cases.get(nbCase);
+        p.type = "pawn";
         nbCase++;
+        
     }
 
     nbCase = 8;
 
     for (int i = 24; i < 32; i++) {
-        pieces.get(i).pieceCase = cases.get(nbCase);
+        Piece p = pieces.get(i);
+        p.pieceCase = cases.get(nbCase);
+        p.type = "pawn";
         nbCase++;
     }
 }

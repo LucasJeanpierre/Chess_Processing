@@ -26,5 +26,7 @@ public void movePiece(String init, String end) {
         for (int i = 1; i < gameMove.length; i++) {
             movePieceByString(gameMove[i]);
         }
+        
+        checkEmptyCases();
     }
 }

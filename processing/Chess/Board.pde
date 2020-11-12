@@ -46,12 +46,12 @@ public class Board {
 
         //white pawns
         for (int i = 48; i < 56; i++) {
-            pieces.add(new Piece("pawn", true, cases.get(i)));
+            pieces.add(new Pawn("pawn", true, cases.get(i)));
         }  
 
         //black pawns
         for (int i = 8; i < 16; i++) {
-            pieces.add(new Piece("pawn", false, cases.get(i)));
+            pieces.add(new Pawn("pawn", false, cases.get(i)));
         }
     }
 

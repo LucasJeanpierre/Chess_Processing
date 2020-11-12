@@ -12,5 +12,6 @@ public void moveFile() {
             //change player
             tour=!tour;
         }
+        checkEmptyCases();
     }
 }
