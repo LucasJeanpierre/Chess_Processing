@@ -1,6 +1,7 @@
 public class King extends Piece {
 
-
+    public boolean wasCheck = false;
+    
     public King(String type_, boolean pieceColor_, Case pieceCase_) {
         super(type_, pieceColor_, pieceCase_);
     }

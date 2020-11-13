@@ -374,6 +374,7 @@ public ArrayList<Case> movableCaseForPiece(Piece p) {
             }
         }
     } else if (p.type == "king") {
+        King king = (King) p;
         for (int i = 0; i < cases.size(); i++) {
             Case c = cases.get(i);
             //not the case who the piece is already
@@ -392,7 +393,7 @@ public ArrayList<Case> movableCaseForPiece(Piece p) {
                     //basic king move
                     if ( ( ( (abs(p.pieceCase.x - c.x) == 0) || (abs(p.pieceCase.x - c.x) == 1) ) ) && ( ( (abs(p.pieceCase.y - c.y) == 0) || (abs(p.pieceCase.y - c.y) == 1) ) ) ) {
                         cases_list.add(c);
-                    } else {
+                    } else if (king.wasCheck == false){
                         //castle
                         //if in the same line and 2 cases on left or right
                         if ( (p.nbmove == 0) && (abs(p.pieceCase.x - c.x) == 2) && (p.pieceCase.y == c.y) ){
