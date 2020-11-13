@@ -14,19 +14,27 @@ class AI {
     public void play() {
         reset();
         moveFile();
-        boolean played = false;
+        String[] movelist;
+        movelist = new String[0];
+
         //lvl 0 random move
-        while (!played) {
-            if (lvl == 0) {
-                int ipiece = int(random(pieces.size()));
-                if ( (pieces.get(ipiece).pieceColor == false) && (pieces.get(ipiece).pieceCase != null) ) {
-                    int icase = int(random(cases.size()));
-                    if (canMove(pieces.get(ipiece),pieces.get(ipiece).pieceCase,cases.get(icase))) {
-                        addMove(pieces.get(ipiece).pieceCase.name,cases.get(icase).name);
-                        played = true;
+        //check all of the possible moves
+        //and chose one randomly
+        if (lvl == 0) {
+            for (int i = 0; i < pieces.size() ;i++) {
+                Piece p = pieces.get(i);
+                //if black piece and still on the board
+                if ( (p.pieceColor == false) && (p.pieceCase != null) ) {
+                    for (int j = 0; j < cases.size(); j++) {
+                        Case c = cases.get(j);
+                        if (canMove(p, p.pieceCase, c)) {
+                            movelist = append(movelist, p.pieceCase.name + "." + c.name);
+                        }
                     }
                 }
             }
+            String randomMove = movelist[int(random(movelist.length))];
+            addMove(split(randomMove, ".")[0],split(randomMove, ".")[1]);
         }
         reset();
         moveFile();

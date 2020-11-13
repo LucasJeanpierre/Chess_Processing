@@ -407,7 +407,9 @@ public ArrayList<Case> movableCaseForPiece(Piece p) {
                                         //if rook never moved
                                         if (rook.nbmove == 0) {
                                             //if the king is not check
-                                            if (!isKingCheck(true)) {
+                                            //is isCaseCheck and not isKingcCheck to avoid infinit recursive loop
+                                            //if we use isKingCheck the other king will check if he can go here and to do that he will will check if the this king can go here and to do that... 
+                                            if (!isCaseCheck(pieces.get(0).pieceCase,true)) {//if (!isKingCheck(true)) {
                                                 //if any of the cases between the king and the rook are threaten by opponent pieces
                                                 if ( (!isCaseCheck(cases.get(61), true)) && (!isCaseCheck(cases.get(62), true)) )
                                                 {
@@ -424,7 +426,7 @@ public ArrayList<Case> movableCaseForPiece(Piece p) {
                                         //if rook never moved
                                         if (rook.nbmove == 0) {
                                             //if the king is not check
-                                            if (!isKingCheck(true)) {
+                                            if (!isCaseCheck(pieces.get(0).pieceCase,true)) { //if (!isKingCheck(true)) {
                                                 //if any of the cases between the king and the rook are threaten by opponent pieces
                                                 if ( (!isCaseCheck(cases.get(57), true)) && (!isCaseCheck(cases.get(58), true)) && (!isCaseCheck(cases.get(59), true)) )
                                                 {
@@ -444,7 +446,7 @@ public ArrayList<Case> movableCaseForPiece(Piece p) {
                                         //if rook never moved
                                         if (rook.nbmove == 0) {
                                             //if the king is not check
-                                            if (!isKingCheck(false)) {
+                                            if (!isCaseCheck(pieces.get(1).pieceCase,false)) {//if (!isKingCheck(false)) {
                                                 //if any of the cases between the king and the rook are threaten by opponent pieces
                                                 if ( (!isCaseCheck(cases.get(5), false)) && (!isCaseCheck(cases.get(6), false)) )
                                                 {
@@ -461,7 +463,7 @@ public ArrayList<Case> movableCaseForPiece(Piece p) {
                                         //if rook never moved
                                         if (rook.nbmove == 0) {
                                             //if the king is not check
-                                            if (!isKingCheck(false)) {
+                                            if (!isCaseCheck(pieces.get(1).pieceCase,false)) { //if (!isKingCheck(false)) {
                                                 //if any of the cases between the king and the rook are threaten by opponent pieces
                                                 if ( (!isCaseCheck(cases.get(1), false)) && (!isCaseCheck(cases.get(2), false)) && (!isCaseCheck(cases.get(3), false)) )
                                                 {

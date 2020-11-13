@@ -15,7 +15,7 @@ public class Pawn extends Piece {
         super.nbmove ++;
         Case c = cases.get(getCaseByXY(x, y));
         c.setAsPieceOn(true);
-        pieceCase = c;
+        super.pieceCase = c;
 
         //if the pawn is on the edge of the board
         if ( ( (super.pieceColor == true) && (c.y == 0) ) || ( (super.pieceColor == false) && (c.y == 7) ) ) {

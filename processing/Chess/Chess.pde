@@ -28,10 +28,10 @@ void setup() {
 
 void draw() {
 
-    if (!tour) {
+    /*if (!tour) {
         ai.play();
         board.showBoard();
-    }
+    }*/
 
     //after all the piece to get the handled piece over the other
     if (handled) {
