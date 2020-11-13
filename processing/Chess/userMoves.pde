@@ -8,6 +8,7 @@ void mousePressed() {
     reset();
     moveFile();
 
+
     int x = mouseX/caseSize;
     int y = mouseY/caseSize;
 
@@ -19,7 +20,7 @@ void mousePressed() {
         //set this piece to player hand
         handledPiece.setHandled(true);
         handled = true;
-
+        
         //rsemove available cases
         for (int i = availableCases.size()-1; i >= 0; i--) {
             availableCases.remove(i);

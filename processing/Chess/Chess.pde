@@ -21,7 +21,9 @@ void setup() {
     ai = new AI(0);
     String[] gameMove = loadStrings("game.txt");
     gameMove[0] = "_";
-    saveStrings("game.txt", gameMove);
+    //saveStrings("game.txt", gameMove);
+    reset();
+    moveFile();
     board.showBoard();
 }
 

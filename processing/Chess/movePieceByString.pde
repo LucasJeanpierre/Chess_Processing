@@ -1,6 +1,5 @@
 public void movePieceByString(String string) {
     //move one Piece accord the string given in arguement
-
     //if not a caste move
     if (!split(string, ".")[1].equals("castle")) {
 
