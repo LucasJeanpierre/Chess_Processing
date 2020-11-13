@@ -1,7 +1,7 @@
 /*
 *author : Lucas JEANPIERRE
-*This chess game works with a game file which stock all the move already done during the game
-*/
+ *This chess game works with a game file which stock all the move already done during the game
+ */
 
 
 Board board;
@@ -14,8 +14,13 @@ ArrayList<Piece> pieces = new ArrayList<Piece>();
 int caseSize;
 boolean tour = true;
 
+void settings() {
+    int height = int(displayHeight*0.8);
+    height = int(height/8)*8;
+    size(height, height);
+}
+
 void setup() {
-    size(800, 800);
     caseSize=width/8;
     board = new Board();
     ai = new AI(0);
@@ -31,16 +36,14 @@ void setup() {
 void draw() {
 
     /*if (!tour) {
-        ai.play();
-        board.showBoard();
-    }*/
-    
+     ai.play();
+     board.showBoard();
+     }*/
+
     if (handled) {
         board.showBoard();
         showAvailableCases();
         //after all the piece to get the handled piece over the other
         handledPiece.showPiece();
     }
-
-
 }
