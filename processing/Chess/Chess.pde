@@ -34,11 +34,11 @@ void draw() {
         ai.play();
         board.showBoard();
     }*/
-
-    //after all the piece to get the handled piece over the other
+    
     if (handled) {
         board.showBoard();
         showAvailableCases();
+        //after all the piece to get the handled piece over the other
         handledPiece.showPiece();
     }
 

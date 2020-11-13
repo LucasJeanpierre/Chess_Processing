@@ -393,7 +393,7 @@ public ArrayList<Case> movableCaseForPiece(Piece p) {
                     //basic king move
                     if ( ( ( (abs(p.pieceCase.x - c.x) == 0) || (abs(p.pieceCase.x - c.x) == 1) ) ) && ( ( (abs(p.pieceCase.y - c.y) == 0) || (abs(p.pieceCase.y - c.y) == 1) ) ) ) {
                         cases_list.add(c);
-                    } else if (king.wasCheck == false){
+                    } else if (king.wasCheck == false){//if the king was check during the game he can't castle
                         //castle
                         //if in the same line and 2 cases on left or right
                         if ( (p.nbmove == 0) && (abs(p.pieceCase.x - c.x) == 2) && (p.pieceCase.y == c.y) ){
