@@ -13,6 +13,7 @@ ArrayList<Piece> pieces = new ArrayList<Piece>();
 
 int caseSize;
 boolean tour = true;
+int nbMoves = 0;
 
 void settings() {
     int height = int(displayHeight*0.8);
@@ -35,10 +36,11 @@ void setup() {
 
 void draw() {
 
-    /*if (!tour) {
-     ai.play();
-     board.showBoard();
-     }*/
+    if (!tour) {
+        ai.play();
+        nbMoves++;
+        board.showBoard();
+    }
 
     if (handled) {
         board.showBoard();
@@ -46,4 +48,5 @@ void draw() {
         //after all the piece to get the handled piece over the other
         handledPiece.showPiece();
     }
+    
 }

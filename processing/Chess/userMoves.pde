@@ -58,7 +58,7 @@ void mouseReleased() {
         if (canMove(handledPiece, initCase, final_case)) {
             //add the move to the game file
 
-        //if the move is a castle
+            //if the move is a castle
             if ( (handledPiece.type == "king") && (abs(handledPiece.pieceCase.x - final_case.x) == 2) && (handledPiece.pieceCase.y == final_case.y) ){
                 String[] gameMove = loadStrings("game.txt");
                 gameMove[0] += "|" + initCase.name + "." + "castle" + "." + final_case.name;
@@ -68,6 +68,7 @@ void mouseReleased() {
                 gameMove[0] += "|" + initCase.name + "." + final_case.name;
                 saveStrings("game.txt", gameMove);
             }
+            nbMoves++;
         }
 
         //remove piece of the memory

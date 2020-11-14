@@ -6,6 +6,7 @@ public void movePieceByString(String string) {
         String init_piece = split(string, ".")[0];
         String final_case = split(string, ".")[1];
 
+        //println("movePieceByString : " +string);
 
         //get the initial and final cases and the piece
         Case c_init = cases.get(getCaseByName(init_piece));
@@ -57,7 +58,7 @@ public void movePieceByString(String string) {
             //move the 2 pieces
             king.moveTo(c_final.x, c_final.y);
             rook.moveTo(5, 0);
-        }else if (c_final.name.equals("c8")) {
+        } else if (c_final.name.equals("c8")) {
             Piece rook = pieces.get(6);
             //set the old case empty
             king.pieceCase.asPieceOn = false;
@@ -65,6 +66,6 @@ public void movePieceByString(String string) {
             //move the 2 pieces
             king.moveTo(c_final.x, c_final.y);
             rook.moveTo(3, 0);
-        } 
+        }
     }
 }

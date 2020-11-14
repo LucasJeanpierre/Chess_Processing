@@ -1,6 +1,9 @@
 class AI {
     private int lvl;
 
+    //private int[] scoreTable = new int[0];
+    private ArrayList<String[]> movelist = new ArrayList<String[]>();
+
     public AI(int lvl_) {
         lvl=lvl_;
     }
@@ -14,57 +17,81 @@ class AI {
     public void play() {
         reset();
         moveFile();
-        String[] movelist;
-        movelist = new String[0];
+        
+        //movelist = new String[0][0];
+
+        String[] gameMoveAI = loadStrings("game.txt");
+
+        gameMoveAI = split(gameMoveAI[0], "|");
+        //print(gameMove);
 
         //lvl 0 random move
         //check all of the possible moves
         //and chose one randomly
         if (lvl == 0) {
-            for (int i = 0; i < pieces.size(); i++) {
-                Piece p = pieces.get(i);
-                //if black piece and still on the board
-                if ( (p.pieceColor == false) && (p.pieceCase != null) ) {
-                    for (int j = 0; j < cases.size(); j++) {
-                        Case c = cases.get(j);
-                        if (canMove(p, p.pieceCase, c)) {
-                            movelist = append(movelist, p.pieceCase.name + "." + c.name);
-                        }
-                    }
-                }
-            }
-            String randomMove = movelist[int(random(movelist.length))];
-            addMove(split(randomMove, ".")[0], split(randomMove, ".")[1]);
+            resetMoveList();
+            recursiveMove(2, gameMoveAI, false);
+            String moveString = movelist.get(int(random(0,movelist.size())))[0];
+            println(moveString);
+            String move = split(moveString, "|")[nbMoves+1];
+            String init = split(move, ".")[0];
+            String end = split(move, ".")[1];
+            //print(scoreTable.length);
+            //addMove(split(randomMove, ".")[0], split(randomMove, ".")[1]);
+            addMove(init, end);
         }
         reset();
         moveFile();
     }
 
-
-    public void recursiveMove(int nbmove, String[] gameMove) {
+    //play move recursivly
+    public void recursiveMove(int nbmove, String[] gameMoveAI, boolean tour) {
+        //String[] gameMoveTemp = gameMoveAI;
+        //println("on recommence");
         if (nbmove > 0) {
             for (int i = 0; i < pieces.size(); i++) {
+                //reset();
+                //moveTestByVar(gameMoveAI);
                 Piece p = pieces.get(i);
                 //if black piece and still on the board
-                if ( (p.pieceColor == false) && (p.pieceCase != null) ) {
+                if ( (p.pieceColor == tour) && (p.pieceCase != null) ) {
+                    //println("piece : "+p.type + p.pieceCase.name);
                     for (int j = 0; j < cases.size(); j++) {
+                        //println("resetandrebuild");
+                        reset();
+                        moveTestByVar(gameMoveAI); 
                         Case c = cases.get(j);
-                        if (canMove(p, p.pieceCase, c)) {
-                            gameMove = addTestMove(p.pieceCase.name, c.name, gameMove);
-                            recursiveMove(nbmove-1, gameMove);
+                        //println("case" + c.name);
+                        if (canMoveTest(p, p.pieceCase, c,gameMoveAI)) {
+                            //println("canmove");
+                            //reset();
+                            //moveTestByVar(gameMoveAI);
+                            
+                            String[] gameMoveTemp = addTestMove(p.pieceCase.name, c.name, gameMoveAI);
+                            //println(gameMoveTemp);
+                            recursiveMove(nbmove-1, gameMoveTemp, !tour);
+                            //print("bonsoir");
                         }
                     }
                 }
             }
         } else {
-            int score = evaluatePosition(gameMove);
+            //println("bonsoir");
+            //println(gameMove);
+            //println(".");
+            int score = evaluatePosition(gameMoveAI);
+            String[] scoreString = {join(gameMoveAI, "|"), str(score)};
+            movelist.add(scoreString);
         }
+        //println(gameMoveTemp);
     }
-    
-    private int evaluatePosition(String[] gameMove) {
+
+    private int evaluatePosition(String[] gameMoveAI) {
         reset();
-        moveTestByVar(gameMove);
-        return int(random(0,100));
+        //println("reset");
+        moveTestByVar(gameMoveAI);
+        //println("done");
+        return int(random(0, 100));
     }
 
     private String[] addTestMove(String init, String end, String[] gameTestMove) {
@@ -78,14 +105,15 @@ class AI {
         }
 
         if (!castle) {
-            gameTestMove[0] += "|" + init + "." + end;
+            //gameTestMove[0] += "|" + init + "." + end;
+            gameTestMove = append(gameTestMove,  init + "." + end);
         } else {
-            gameTestMove[0] += "|" + init + "." +"castle" + "." + end;
+            //gameTestMove[0] += "|" + init + "." +"castle" + "." + end;
+            gameTestMove = append(gameTestMove,  init + "." +"castle" + "." + end);
         }
 
         return gameTestMove;
 
-        //saveStrings("game.txt", gameMove);
     }
 
     private void addMove(String init, String end) {
@@ -107,5 +135,11 @@ class AI {
         }
 
         saveStrings("game.txt", gameMove);
+    }
+
+    private void resetMoveList() {
+        for (int i = movelist.size() - 1 ; i > 0; i--) {
+            movelist.remove(i);
+        }
     }
 }
