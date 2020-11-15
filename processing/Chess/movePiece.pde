@@ -63,7 +63,7 @@ public void moveTestPiece(String init, String end, String[] gameMove) {
         gameMove = append(gameMove,init + "." +"castle" + "." + end);
     }
 
-    if (gameMove.length == 1) {
+    if (gameMove.length > 1) {
         reset();
         //gameMove = split(gameMove[0], "|");
         
