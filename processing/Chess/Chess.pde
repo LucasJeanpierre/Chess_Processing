@@ -36,6 +36,7 @@ void setup() {
 
 void draw() {
 
+    //ai.play();
     if (!tour) {
         ai.play();
         nbMoves++;

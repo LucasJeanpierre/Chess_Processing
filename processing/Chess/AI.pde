@@ -30,12 +30,24 @@ class AI {
         //and chose one randomly
         if (lvl == 0) {
             resetMoveList();
-            recursiveMove(2, gameMoveAI, false);
-            String moveString = movelist.get(int(random(0,movelist.size())))[0];
-            println(moveString);
+            recursiveMove(1, gameMoveAI, false);
+
+            print(movelist.size());
+            //println(moveString);
+
+            String moveString = movelist.get(int(random(0,movelist.size())-1))[0];
+
+            for (int i = 0; i < movelist.size(); i++){
+                println(movelist.get(i));
+            }
+
+
+            
             String move = split(moveString, "|")[nbMoves+1];
             String init = split(move, ".")[0];
             String end = split(move, ".")[1];
+
+            println("move : " + init + "." + end);
             //print(scoreTable.length);
             //addMove(split(randomMove, ".")[0], split(randomMove, ".")[1]);
             addMove(init, end);
@@ -48,6 +60,7 @@ class AI {
     public void recursiveMove(int nbmove, String[] gameMoveAI, boolean tour) {
         //String[] gameMoveTemp = gameMoveAI;
         //println("on recommence");
+        
         if (nbmove > 0) {
             for (int i = 0; i < pieces.size(); i++) {
                 //reset();
@@ -58,17 +71,20 @@ class AI {
                     //println("piece : "+p.type + p.pieceCase.name);
                     for (int j = 0; j < cases.size(); j++) {
                         //println("resetandrebuild");
+
                         reset();
                         moveTestByVar(gameMoveAI); 
                         Case c = cases.get(j);
-                        //println("case" + c.name);
-                        if (canMoveTest(p, p.pieceCase, c,gameMoveAI)) {
+                        
+                        if (canMoveTest(p, p.pieceCase, c, gameMoveAI)) {
                             //println("canmove");
-                            //reset();
-                            //moveTestByVar(gameMoveAI);
                             
+                            reset();
+                            moveTestByVar(gameMoveAI);
+                            //println(join(gameMoveAI, " "));
                             String[] gameMoveTemp = addTestMove(p.pieceCase.name, c.name, gameMoveAI);
                             //println(gameMoveTemp);
+                            //println("after" + join(gameMoveTemp, " "));
                             recursiveMove(nbmove-1, gameMoveTemp, !tour);
                             //print("bonsoir");
                         }
@@ -80,6 +96,7 @@ class AI {
             //println(gameMove);
             //println(".");
             int score = evaluatePosition(gameMoveAI);
+            //println(gameMoveAI);
             String[] scoreString = {join(gameMoveAI, "|"), str(score)};
             movelist.add(scoreString);
         }
@@ -100,7 +117,7 @@ class AI {
         if ( (init.equals("e1")) || (init.equals("e8")) ) {
             //all four castle posibility
             if ( ( (init.equals("e1")) && (end.equals("g1")) ) || ( (init.equals("e1")) && (end.equals("c1")) ) || ( (init.equals("e8")) && (end.equals("g8")) ) || ( (init.equals("e8")) && (end.equals("c8")) ) ) {
-                castle = true;
+                //castle = true;
             }
         }
 
@@ -122,7 +139,10 @@ class AI {
         if ( (init.equals("e1")) || (init.equals("e8")) ) {
             //all four castle posibility
             if ( ( (init.equals("e1")) && (end.equals("g1")) ) || ( (init.equals("e1")) && (end.equals("c1")) ) || ( (init.equals("e8")) && (end.equals("g8")) ) || ( (init.equals("e8")) && (end.equals("c8")) ) ) {
-                castle = true;
+                Piece initp = pieces.get(getPieceByCase(cases.get(getCaseByName(init))));
+                if (initp.type == "king") {
+                    castle = true;
+                }
             }
         }
 
@@ -138,7 +158,7 @@ class AI {
     }
 
     private void resetMoveList() {
-        for (int i = movelist.size() - 1 ; i > 0; i--) {
+        for (int i = movelist.size() - 1 ; i >= 0; i--) {
             movelist.remove(i);
         }
     }

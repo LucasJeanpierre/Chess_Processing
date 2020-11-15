@@ -1,1 +1,1 @@
-_|e2.e3|h7.h6|d1.h5|h8.h7|f1.d3|e7.e6|d3.c4|e6.e5|c4.b5|g8.f6|b5.c4|f6.g8|c4.b5|g7.g5|b5.c4|f8.e7|c4.b5|g5.g4|b5.c4|c7.c6|c4.b5|e7.g5|b5.c4|c6.c5|c4.b5|d7.d6
+_|e2.e4|c7.c6|d2.d4|f7.f5

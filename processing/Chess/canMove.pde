@@ -29,19 +29,34 @@ public boolean canMoveTest(Piece p, Case c1, Case c2, String[] gameMove) {
     boolean result;
     //if the case in in the list of available cases
     if (isInCaseList(c2, movableCases)) {
+        reset();
+        //moveTestByVar(gameMove);
         //we do the move and test if the king will be check after this move
+        Piece tempp = pieces.get(3);
+        println(tempp.pieceCase.name);
+
+        println("------------");
         //we do it with the test move to not change the game file
         moveTestPiece(c1.name, c2.name, gameMove);
         //print("test");
         //if the king is not chess after this move it's ok
-        if (!isKingCheck(p.pieceColor)) {
+        
+        println(tempp.pieceCase.name);
+
+        //println("------------");
+
+
+        if (!isKingCheckTest(p.pieceColor, gameMove)) {
+            //print("bonsoir");
             result = true;
         } else { //if not the move is not available
             result = false;
         }
+        //result = true;
         //after the move we reset the board and place the piece like before the test
         reset();
-        moveFile();
+        moveTestByVar(gameMove);
+        //moveFile();
         return result;
     } else {
         return false;
