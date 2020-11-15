@@ -8,11 +8,6 @@ class AI {
         lvl=lvl_;
     }
 
-    public void tempoPlay() {
-        addMove("e7", "e5");
-        reset();
-        moveFile();
-    }
 
     public void play() {
         reset();
@@ -30,16 +25,16 @@ class AI {
         //and chose one randomly
         if (lvl == 0) {
             resetMoveList();
-            recursiveMove(1, gameMoveAI, false);
+            recursiveMove(profondeur, gameMoveAI, false);
 
             print(movelist.size());
             //println(moveString);
 
-            String moveString = movelist.get(int(random(0,movelist.size())-1))[0];
+            String moveString = movelist.get(getBestMove(movelist))[0];
 
-            for (int i = 0; i < movelist.size(); i++){
+            /*for (int i = 0; i < movelist.size(); i++){
                 println(movelist.get(i));
-            }
+            }*/
 
 
             
