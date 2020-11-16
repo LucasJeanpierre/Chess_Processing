@@ -58,6 +58,9 @@ class AI {
 
         if (nbmove > 0) {
             for (int i = 0; i < pieces.size(); i++) {
+                reset();
+                moveTestByVar(gameMoveAI);
+                
                 Piece p = pieces.get(i);
                 //if black piece and still on the board
                 if ( (p.pieceColor == tour) && (p.pieceCase != null) ) {
@@ -71,6 +74,7 @@ class AI {
 
                             reset();
                             moveTestByVar(gameMoveAI);
+                            
                             String[] gameMoveTemp = addTestMove(p.pieceCase.name, c.name, gameMoveAI);
                             float score = recursiveMove(nbmove-1, gameMoveTemp, !tour);
 
@@ -153,6 +157,17 @@ class AI {
                     }
                 }
             }
+            
+            //their is a bug when isKingCheck and/or isCheckMate are live
+            /*if (isKingCheck(true)) {
+                score += 10;
+            }*/
+
+            /*if (isCheckMate()) {
+                if (isKingCheck(true)) {
+                    score += 100;
+                }
+            }*/
             return score + random(1)*0.2;
         } else {
             return 0;

@@ -7,7 +7,7 @@
 Board board;
 
 AI ai;
-int profondeur = 2;
+int profondeur = 3;
 
 ArrayList<Case> cases = new ArrayList<Case>();
 ArrayList<Piece> pieces = new ArrayList<Piece>();

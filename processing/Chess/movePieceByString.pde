@@ -9,6 +9,8 @@ public void movePieceByString(String string) {
         //println("movePieceByString : " +string);
 
         //get the initial and final cases and the piece
+        //println(init_piece + "." + final_case);
+        //println(init_piece);
         Case c_init = cases.get(getCaseByName(init_piece));
         Piece piece = pieces.get(getPieceByCase(c_init));
         Case c_final = cases.get(getCaseByName(final_case));
