@@ -27,24 +27,19 @@ class AI {
             resetMoveList();
             recursiveMove(profondeur, gameMoveAI, false);
 
-            print(movelist.size());
-            //println(moveString);
+            println("move's number analysed :" + movelist.size());
 
             String moveString = movelist.get(getBestMove(movelist))[0];
 
             /*for (int i = 0; i < movelist.size(); i++){
                 println(movelist.get(i));
             }*/
-
-
             
             String move = split(moveString, "|")[nbMoves+1];
             String init = split(move, ".")[0];
             String end = split(move, ".")[1];
 
             println("move : " + init + "." + end);
-            //print(scoreTable.length);
-            //addMove(split(randomMove, ".")[0], split(randomMove, ".")[1]);
             addMove(init, end);
         }
         reset();
@@ -53,45 +48,30 @@ class AI {
 
     //play move recursivly
     public void recursiveMove(int nbmove, String[] gameMoveAI, boolean tour) {
-        //String[] gameMoveTemp = gameMoveAI;
-        //println("on recommence");
         
         if (nbmove > 0) {
             for (int i = 0; i < pieces.size(); i++) {
-                //reset();
-                //moveTestByVar(gameMoveAI);
                 Piece p = pieces.get(i);
                 //if black piece and still on the board
                 if ( (p.pieceColor == tour) && (p.pieceCase != null) ) {
-                    //println("piece : "+p.type + p.pieceCase.name);
                     for (int j = 0; j < cases.size(); j++) {
-                        //println("resetandrebuild");
 
                         reset();
                         moveTestByVar(gameMoveAI); 
                         Case c = cases.get(j);
                         
                         if (canMoveTest(p, p.pieceCase, c, gameMoveAI)) {
-                            //println("canmove");
                             
                             reset();
                             moveTestByVar(gameMoveAI);
-                            //println(join(gameMoveAI, " "));
                             String[] gameMoveTemp = addTestMove(p.pieceCase.name, c.name, gameMoveAI);
-                            //println(gameMoveTemp);
-                            //println("after" + join(gameMoveTemp, " "));
                             recursiveMove(nbmove-1, gameMoveTemp, !tour);
-                            //print("bonsoir");
                         }
                     }
                 }
             }
         } else {
-            //println("bonsoir");
-            //println(gameMove);
-            //println(".");
             int score = evaluatePosition(gameMoveAI);
-            //println(gameMoveAI);
             String[] scoreString = {join(gameMoveAI, "|"), str(score)};
             movelist.add(scoreString);
         }
