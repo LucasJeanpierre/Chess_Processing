@@ -17,7 +17,7 @@ public int getBestMove(ArrayList<String[]> movelist) {
         if (!move.equals(currentMove)) {
             currentMove = move;
             println(move);
-            minimax(movelist.get(i), nbMoves+1);
+            //minimax(movelist.get(i), nbMoves+1);
         }
     }
 
@@ -25,9 +25,9 @@ public int getBestMove(ArrayList<String[]> movelist) {
     return 0;
 }
 
-public void minimax(String move, int nb) {
+/*public void minimax(String move, int nb) {
     if (nb)
-}
+}*/
 
 
 

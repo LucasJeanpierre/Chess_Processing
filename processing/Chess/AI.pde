@@ -1,8 +1,9 @@
 class AI {
     private int lvl;
+    private String Bestmove;
 
     //private int[] scoreTable = new int[0];
-    private ArrayList<String[]> movelist = new ArrayList<String[]>();
+    //private ArrayList<String[]> movelist = new ArrayList<String[]>();
 
     public AI(int lvl_) {
         lvl=lvl_;
@@ -12,7 +13,7 @@ class AI {
     public void play() {
         reset();
         moveFile();
-        
+
         //movelist = new String[0][0];
 
         String[] gameMoveAI = loadStrings("game.txt");
@@ -23,32 +24,38 @@ class AI {
         //lvl 0 random move
         //check all of the possible moves
         //and chose one randomly
-        if (lvl == 0) {
-            resetMoveList();
-            recursiveMove(profondeur, gameMoveAI, false);
+        //resetMoveList();
+        Bestmove = "";
+        //call the recursive function who test eveey possible move for the depth chosen
+        recursiveMove(profondeur, gameMoveAI, false);
 
-            println("move's number analysed :" + movelist.size());
+        //println("move's number analysed :" + movelist.size());
 
-            String moveString = movelist.get(getBestMove(movelist))[0];
 
-            /*for (int i = 0; i < movelist.size(); i++){
-                println(movelist.get(i));
-            }*/
-            
-            String move = split(moveString, "|")[nbMoves+1];
-            String init = split(move, ".")[0];
-            String end = split(move, ".")[1];
+        String init = split(Bestmove, ".")[0];
+        String end = split(Bestmove, ".")[1];
 
-            println("move : " + init + "." + end);
-            addMove(init, end);
-        }
+        //println("move : " + init + "." + end);
+        addMove(init, end);
+
         reset();
         moveFile();
     }
 
     //play move recursivly
-    public void recursiveMove(int nbmove, String[] gameMoveAI, boolean tour) {
-        
+    //minimax algorithm
+    public float recursiveMove(int nbmove, String[] gameMoveAI, boolean tour) {
+        //according to who is playing we want to know which one will be the best 
+        //if its white turn they will try to reduce the score
+        //so we need to do the move (for depth == 2) with the max score of all the min score of the whites answer moves
+        //its minimax algorithm
+        float BestScore;
+        if (tour) {
+            BestScore = 100000;
+        } else {
+            BestScore = -10000;
+        }
+
         if (nbmove > 0) {
             for (int i = 0; i < pieces.size(); i++) {
                 Piece p = pieces.get(i);
@@ -59,31 +66,97 @@ class AI {
                         reset();
                         moveTestByVar(gameMoveAI); 
                         Case c = cases.get(j);
-                        
+
                         if (canMoveTest(p, p.pieceCase, c, gameMoveAI)) {
-                            
+
                             reset();
                             moveTestByVar(gameMoveAI);
                             String[] gameMoveTemp = addTestMove(p.pieceCase.name, c.name, gameMoveAI);
-                            recursiveMove(nbmove-1, gameMoveTemp, !tour);
+                            float score = recursiveMove(nbmove-1, gameMoveTemp, !tour);
+
+                            reset();
+                            moveTestByVar(gameMoveAI);
+
+                            //if its all the firts move we keep the String of the move to do it after
+                            if (nbmove == profondeur) {
+
+                                //minimax algorithm
+                                if (tour) {
+                                    if (score < BestScore) {
+                                        BestScore = score;
+                                        Bestmove = p.pieceCase.name + "." + c.name;
+                                    }
+                                } else {
+                                    if (score > BestScore) {
+                                        BestScore = score;
+                                        Bestmove = p.pieceCase.name + "." + c.name;
+                                    }
+                                }
+                            } else {//if not we just keep the score
+
+
+
+                                if (tour) {
+                                    BestScore = min(score, BestScore);
+                                } else {
+                                    BestScore = max(score, BestScore);
+                                }
+                            }
                         }
                     }
                 }
             }
+            return BestScore;
         } else {
-            int score = evaluatePosition(gameMoveAI);
-            String[] scoreString = {join(gameMoveAI, "|"), str(score)};
-            movelist.add(scoreString);
+            //println(evaluatePosition(gameMoveAI)  + join(gameMoveAI, "|") );
+            return evaluatePosition(gameMoveAI);
+            //String[] scoreString = {join(gameMoveAI, "|"), str(score)};
+            //movelist.add(scoreString);
         }
         //println(gameMoveTemp);
     }
 
-    private int evaluatePosition(String[] gameMoveAI) {
+    private float evaluatePosition(String[] gameMoveAI) {
         reset();
         //println("reset");
         moveTestByVar(gameMoveAI);
         //println("done");
-        return int(random(0, 100));
+        if (lvl == 0) {
+            return int(random(0, 100));
+        } else if (lvl == 1) {
+            int score = 0;
+            for (int i = 0; i < pieces.size(); i++) {
+                Piece p = pieces.get(i);
+                if ( (p.pieceCase != null) && (p.pieceColor == false) ) {
+                    if (p.type == "queen") {
+                        score += 9;
+                    } else if (p.type == "rook") {
+                        score += 5;
+                    } else if (p.type == "knight") {
+                        score += 3;
+                    } else if (p.type == "bishop") {
+                        score += 3;
+                    } else if (p.type == "pawn") {
+                        score += 1;
+                    }
+                } else if ( (p.pieceCase != null) && (p.pieceColor == true) ) {
+                    if (p.type == "queen") {
+                        score -= 9;
+                    } else if (p.type == "rook") {
+                        score -= 5;
+                    } else if (p.type == "knight") {
+                        score -= 3;
+                    } else if (p.type == "bishop") {
+                        score -= 3;
+                    } else if (p.type == "pawn") {
+                        score -= 1;
+                    }
+                }
+            }
+            return score + random(1)*0.2;
+        } else {
+            return 0;
+        }
     }
 
     private String[] addTestMove(String init, String end, String[] gameTestMove) {
@@ -98,14 +171,13 @@ class AI {
 
         if (!castle) {
             //gameTestMove[0] += "|" + init + "." + end;
-            gameTestMove = append(gameTestMove,  init + "." + end);
+            gameTestMove = append(gameTestMove, init + "." + end);
         } else {
             //gameTestMove[0] += "|" + init + "." +"castle" + "." + end;
-            gameTestMove = append(gameTestMove,  init + "." +"castle" + "." + end);
+            gameTestMove = append(gameTestMove, init + "." +"castle" + "." + end);
         }
 
         return gameTestMove;
-
     }
 
     private void addMove(String init, String end) {
@@ -132,9 +204,9 @@ class AI {
         saveStrings("game.txt", gameMove);
     }
 
-    private void resetMoveList() {
-        for (int i = movelist.size() - 1 ; i >= 0; i--) {
-            movelist.remove(i);
-        }
-    }
+    /*private void resetMoveList() {
+     for (int i = movelist.size() - 1; i >= 0; i--) {
+     movelist.remove(i);
+     }
+     }*/
 }

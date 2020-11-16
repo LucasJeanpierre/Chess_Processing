@@ -25,7 +25,7 @@ void settings() {
 void setup() {
     caseSize=width/8;
     board = new Board();
-    ai = new AI(0);
+    ai = new AI(1);
     String[] gameMove = loadStrings("game.txt");
     gameMove[0] = "_";
     saveStrings("game.txt", gameMove);
