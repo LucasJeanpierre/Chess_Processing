@@ -16,9 +16,9 @@ class AI {
 
         //movelist = new String[0][0];
 
-        String[] gameMoveAI = loadStrings("game.txt");
+        /*String[] gameMoveAI = loadStrings("game.txt");
 
-        gameMoveAI = split(gameMoveAI[0], "|");
+        gameMoveAI = split(gameMoveAI[0], "|");*/
         //print(gameMove);
 
         //lvl 0 random move
@@ -27,7 +27,7 @@ class AI {
         //resetMoveList();
         Bestmove = "";
         //call the recursive function who test eveey possible move for the depth chosen
-        recursiveMove(profondeur, gameMoveAI, false);
+        recursiveMove(profondeur, /*gameMoveAI*/gameMove, false);
 
         //println("move's number analysed :" + movelist.size());
 
@@ -77,7 +77,7 @@ class AI {
                             
                             String[] gameMoveTemp = addTestMove(p.pieceCase.name, c.name, gameMoveAI);
                             float score = recursiveMove(nbmove-1, gameMoveTemp, !tour);
-
+                            //float score = 2.1;
                             reset();
                             moveTestByVar(gameMoveAI);
 
@@ -208,12 +208,14 @@ class AI {
             }
         }
 
-        String[] gameMove = loadStrings("game.txt");
+        //String[] gameMove = loadStrings("game.txt");
 
         if (!castle) {
-            gameMove[0] += "|" + init + "." + end;
+            //gameMove[0] += "|" + init + "." + end;
+            gameMove = append(gameMove, init + "." + end);
         } else {
-            gameMove[0] += "|" + init + "." +"castle" + "." + end;
+            //gameMove[0] += "|" + init + "." +"castle" + "." + end;
+            gameMove = append(gameMove, init + "." + "castle" +"."+ end);
         }
 
         saveStrings("game.txt", gameMove);

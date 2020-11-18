@@ -53,6 +53,10 @@ public class Board {
         for (int i = 8; i < 16; i++) {
             pieces.add(new Pawn("pawn", false, cases.get(i)));
         }
+
+        for (int i = 0; i < pieces.size(); i++) {
+            pieces.get(i).numberPiece = i;
+        }
     }
 
 

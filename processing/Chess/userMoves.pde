@@ -8,7 +8,6 @@ void mousePressed() {
     reset();
     moveFile();
 
-
     int x = mouseX/caseSize;
     int y = mouseY/caseSize;
 
@@ -29,7 +28,9 @@ void mousePressed() {
         //show available cases
         for (int i = 0; i < cases.size(); i++) {
             Case c = cases.get(i);
+            //println(c.name);
             if (canMove(handledPiece, initCase, c)) {
+                //print("ouplabom");
                 availableCases.add(new PVector(c.x*caseSize+caseSize/2, c.y*caseSize+caseSize/2));
             }
         }
@@ -60,13 +61,15 @@ void mouseReleased() {
 
             //if the move is a castle
             if ( (handledPiece.type == "king") && (abs(handledPiece.pieceCase.x - final_case.x) == 2) && (handledPiece.pieceCase.y == final_case.y) ){
-                String[] gameMove = loadStrings("game.txt");
-                gameMove[0] += "|" + initCase.name + "." + "castle" + "." + final_case.name;
-                saveStrings("game.txt", gameMove);
+                //String[] gameMove = loadStrings("game.txt");
+                //gameMove[0] += "|" + initCase.name + "." + "castle" + "." + final_case.name;
+                gameMove = append(gameMove, initCase.name + "." + "castle" + "." + final_case.name);
+                //saveStrings("game.txt", gameMove);
             } else {
-                String[] gameMove = loadStrings("game.txt");
-                gameMove[0] += "|" + initCase.name + "." + final_case.name;
-                saveStrings("game.txt", gameMove);
+                //String[] gameMove = loadStrings("game.txt");
+                //gameMove[0] += "|" + initCase.name + "." + final_case.name;
+                gameMove = append(gameMove, initCase.name + "." + final_case.name);
+                //saveStrings("game.txt", gameMove);
             }
             nbMoves++;
         }

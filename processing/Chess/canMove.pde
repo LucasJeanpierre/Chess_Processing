@@ -14,6 +14,7 @@ public boolean canMove(Piece p, Case c1, Case c2) {
         } else { //if not the move is not available
             result = false;
         }
+        //result = true;
         //after the move we reset the board and place the piece like before the test
         reset();
         moveFile();
