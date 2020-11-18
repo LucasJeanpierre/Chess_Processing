@@ -77,6 +77,7 @@ public void movePieceByString_old(String string) {
 public void movePieceByString(String string) {
     //move one Piece accord the string given in arguement
     //if not a caste move
+    println(string);
     if (!split(string, ".")[1].equals("castle")) {
 
         //String init_piece = split(string, ".")[0];
