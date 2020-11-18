@@ -5,6 +5,7 @@ public class Case {
     private int y;
     private String name;
     private boolean asPieceOn;
+    private int number;
 
     private color white = color(200);
     private color black = color(0, 150, 150);

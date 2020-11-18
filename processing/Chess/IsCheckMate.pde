@@ -6,7 +6,8 @@ public boolean isCheckMate() {
                 ArrayList<Case> movableCases = movableCaseForPiece(p);
                 for (int j = 0; j < movableCases.size(); j++) {
                     Case c = movableCases.get(j);
-                    if (canMove(p, p.pieceCase, c)) {
+                    //if (canMove(p, p.pieceCase, c)) {
+                    if (canMove(p, c)) {
                         return false;
                     }
                 }
@@ -19,7 +20,8 @@ public boolean isCheckMate() {
                 ArrayList<Case> movableCases = movableCaseForPiece(p);
                 for (int j = 0; j < movableCases.size(); j++) {
                     Case c = movableCases.get(j);
-                    if (canMove(p, p.pieceCase, c)) {
+                    //if (canMove(p, p.pieceCase, c)) {
+                    if (canMove(p, c)) {
                         return false;
                     }
                 }

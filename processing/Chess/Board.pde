@@ -9,6 +9,10 @@ public class Board {
             }
         }
 
+        for (int i = 0; i < cases.size(); i++) {
+            cases.get(i).number = i;
+        }
+
         //init pieces
         //white king
         pieces.add(new King("king", true, cases.get(60)));
@@ -55,7 +59,7 @@ public class Board {
         }
 
         for (int i = 0; i < pieces.size(); i++) {
-            pieces.get(i).numberPiece = i;
+            pieces.get(i).number = i;
         }
     }
 

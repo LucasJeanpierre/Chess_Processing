@@ -29,7 +29,8 @@ void mousePressed() {
         for (int i = 0; i < cases.size(); i++) {
             Case c = cases.get(i);
             //println(c.name);
-            if (canMove(handledPiece, initCase, c)) {
+            //if (canMove(handlePiece, initCase, c)) {
+            if (canMove(handledPiece, c)) {
                 //print("ouplabom");
                 availableCases.add(new PVector(c.x*caseSize+caseSize/2, c.y*caseSize+caseSize/2));
             }
@@ -56,19 +57,28 @@ void mouseReleased() {
         reset();
         moveFile();
         //test if the move is available
-        if (canMove(handledPiece, initCase, final_case)) {
+        //if (canMove(handledPiece, initCase, final_case)) {
+        if (canMove(handledPiece, final_case)) {
             //add the move to the game file
 
             //if the move is a castle
             if ( (handledPiece.type == "king") && (abs(handledPiece.pieceCase.x - final_case.x) == 2) && (handledPiece.pieceCase.y == final_case.y) ){
                 //String[] gameMove = loadStrings("game.txt");
                 //gameMove[0] += "|" + initCase.name + "." + "castle" + "." + final_case.name;
-                gameMove = append(gameMove, initCase.name + "." + "castle" + "." + final_case.name);
+                //gameMove = append(gameMove, initCase.name + "." + "castle" + "." + final_case.name);
+                gameMove = append(gameMove, handledPiece.number + ".castle." + final_case.number);
                 //saveStrings("game.txt", gameMove);
             } else {
                 //String[] gameMove = loadStrings("game.txt");
                 //gameMove[0] += "|" + initCase.name + "." + final_case.name;
-                gameMove = append(gameMove, initCase.name + "." + final_case.name);
+                //gameMove = append(gameMove, initCase.name + "." + final_case.name);
+                if (final_case.asPieceOn) {
+                    gameMove = append(gameMove, handledPiece.number + "." + final_case.number + "." + pieces.get(getPieceByCase(final_case)).number);
+                } else {
+                    gameMove = append(gameMove, handledPiece.number + "." + final_case.number);
+                }
+                
+                println(gameMove);
                 //saveStrings("game.txt", gameMove);
             }
             nbMoves++;

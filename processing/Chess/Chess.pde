@@ -7,7 +7,7 @@
 Board board;
 
 AI ai;
-int profondeur = 4;
+int profondeur = 2;
 
 ArrayList<Case> cases = new ArrayList<Case>();
 ArrayList<Piece> pieces = new ArrayList<Piece>();
@@ -39,11 +39,11 @@ void setup() {
 void draw() {
 
     //ai.play();
-    if (!tour) {
+    /*if (!tour) {
         ai.play();
         nbMoves++;
         board.showBoard();
-    }
+    }*/
 
     if (handled) {
         board.showBoard();

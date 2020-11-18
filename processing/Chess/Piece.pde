@@ -4,7 +4,7 @@ public class Piece {
     public Case pieceCase;
     private PImage image;
     private int nbmove = 0;
-    private int numberPiece;
+    private int number;
 
     private boolean handled = false;
 
