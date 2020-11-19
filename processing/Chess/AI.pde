@@ -36,7 +36,8 @@ class AI {
         String end = split(Bestmove, ".")[1];
 
         //println("move : " + init + "." + end);
-        addMove(init, end);
+        //addMove(init, end);
+        addMove(pieces.get(int(init)), cases.get(int(end)));
 
         reset();
         moveFile();
@@ -71,7 +72,7 @@ class AI {
                         Case c = cases.get(j);
 
                         //if (canMoveTest(p, p.pieceCase, c, gameMoveAI)) {
-                          if (canMove(p, c)) {
+                        if (canMove(p, c)) {
 
                             reset();
                             moveTestByVar(gameMoveAI);
@@ -117,7 +118,8 @@ class AI {
             return BestScore;
         } else {
             //println(evaluatePosition(gameMoveAI)  + join(gameMoveAI, "|") );
-            return evaluatePosition(gameMoveAI);
+            //return evaluatePosition(gameMoveAI);
+            return int(random(5));
             //String[] scoreString = {join(gameMoveAI, "|"), str(score)};
             //movelist.add(scoreString);
         }
@@ -226,7 +228,7 @@ class AI {
         return gameTestMove;
     }
 
-    private void addMove(String init, String end) {
+    private void addMove_old(String init, String end) {
         boolean castle = false;
         //if it's a castle move
         if ( (init.equals("e1")) || (init.equals("e8")) ) {
@@ -257,4 +259,29 @@ class AI {
      movelist.remove(i);
      }
      }*/
+
+    private void addMove(Piece p, Case c) {
+        boolean castle = false;
+        //if it's a castle move
+        if ( (p.pieceCase.name.equals("e1")) || (p.pieceCase.name.equals("e8")) ) {
+            //all four castle posibility
+            if ( ( (p.pieceCase.name.equals("e1")) && (c.name.equals("g1")) ) || ( (p.pieceCase.name.equals("e1")) && (c.name.equals("c1")) ) || ( (p.pieceCase.name.equals("e8")) && (c.name.equals("g8")) ) || ( (p.pieceCase.name.equals("e8")) && (c.name.equals("c8")) ) ) {
+                if (p.type == "king") {
+                    castle = true;
+                }
+            }
+        }
+
+        if (!castle) {
+            //gameTestMove[0] += "|" + init + "." + end;
+            if (c.asPieceOn) {
+                gameMove = append(gameMove, p.number + "." + c.number + "." + pieces.get(getPieceByCase(c)).number);
+            } else {
+                gameMove = append(gameMove, p.number + "." + c.number);
+            }
+        } else {
+            //gameTestMove[0] += "|" + init + "." +"castle" + "." + end;
+            gameMove = append(gameMove, p.number + "." +"castle" + "." + c.number);
+        }
+    }
 }

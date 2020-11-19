@@ -1,6 +1,6 @@
 /*
 *author : Lucas JEANPIERRE
- *This chess game works with a game file which stock all the move already done during the game
+ *This chess game works with a game String[] which stock all the move already done during the game
  */
 
 //import java.util.Iterator;

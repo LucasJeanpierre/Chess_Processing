@@ -144,7 +144,7 @@ public void unMovePiece(String init, String end) {
 }
 
 
-public void moveTestPiece(String init, String end, String[] gameMove) {
+public void moveTestPiece_old(String init, String end, String[] gameMove) {
     //do a move without write on the game file
     //allow to try a move without change the game state
     //print("movePiece");
@@ -167,6 +167,50 @@ public void moveTestPiece(String init, String end, String[] gameMove) {
         gameMove = append(gameMove,init + "." + end);
     } else {
         gameMove = append(gameMove,init + "." +"castle" + "." + end);
+    }
+
+    if (gameMove.length > 0) {
+        reset();
+        //gameMove = split(gameMove[0], "|");
+        
+        for (int i = 0; i < gameMove.length; i++) {
+            movePieceByString(gameMove[i]);
+        }
+        checkEmptyCases();
+    }
+    
+    gameMove = shorten(gameMove);
+}
+
+
+public void moveTestPiece(Piece p, Case c, String[] gameMove) {
+    //do a move without write on the game file
+    //allow to try a move without change the game state
+    //print("movePiece");
+    boolean castle = false;
+    //if it's a castle move
+    if ( (p.pieceCase.name.equals("e1")) || (p.pieceCase.name.equals("e8")) ) {
+        //all four castle posibility
+        if ( ( (p.pieceCase.name.equals("e1")) && (c.name.equals("g1")) ) || ( (p.pieceCase.name.equals("e1")) && (c.name.equals("c1")) ) || ( (p.pieceCase.name.equals("e8")) && (c.name.equals("g8")) ) || ( (p.pieceCase.name.equals("e8")) && (c.name.equals("c8")) ) ) {
+            //check if it's not just a simple move between e1 and g1 for example
+            if (p.type == "king") {
+                castle = true;
+            }
+
+        }
+    }
+
+
+    if (!castle) {
+        //gameMove = append(gameMove,init + "." + end);
+        if (c.asPieceOn) {
+            gameMove = append(gameMove, p.number +"." + c.number +"." + pieces.get(getPieceByCase(c)));
+        } else {
+            gameMove = append(gameMove, p.number + "." + c.number);
+        }
+    } else {
+        //gameMove = append(gameMove,init + "." +"castle" + "." + end);
+        gameMove = append(gameMove, p.number + "castle" + c.number);
     }
 
     if (gameMove.length > 0) {
