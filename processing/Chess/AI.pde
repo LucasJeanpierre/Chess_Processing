@@ -72,7 +72,7 @@ class AI {
                         Case c = cases.get(j);
 
                         //if (canMoveTest(p, p.pieceCase, c, gameMoveAI)) {
-                        if (canMove(p, c)) {
+                        if (canMoveTest(p, c, gameMoveAI)) {
 
                             reset();
                             moveTestByVar(gameMoveAI);
@@ -118,8 +118,8 @@ class AI {
             return BestScore;
         } else {
             //println(evaluatePosition(gameMoveAI)  + join(gameMoveAI, "|") );
-            //return evaluatePosition(gameMoveAI);
-            return int(random(5));
+            return evaluatePosition(gameMoveAI);
+            //return int(random(5));
             //String[] scoreString = {join(gameMoveAI, "|"), str(score)};
             //movelist.add(scoreString);
         }
@@ -216,7 +216,7 @@ class AI {
         if (!castle) {
             //gameTestMove[0] += "|" + init + "." + end;
             if (c.asPieceOn) {
-                gameTestMove = append(gameTestMove, p.number + "." + c.number + "." + pieces.get(getPieceByCase(c)));
+                gameTestMove = append(gameTestMove, p.number + "." + c.number + "." + pieces.get(getPieceByCase(c)).number);
             } else {
                 gameTestMove = append(gameTestMove, p.number + "." + c.number);
             }
@@ -224,6 +224,7 @@ class AI {
             //gameTestMove[0] += "|" + init + "." +"castle" + "." + end;
             gameTestMove = append(gameTestMove, p.number + "." +"castle" + "." + c.number);
         }
+        println("addTestMove");
 
         return gameTestMove;
     }
