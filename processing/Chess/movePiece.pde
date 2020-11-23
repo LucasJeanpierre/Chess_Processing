@@ -204,7 +204,7 @@ public void moveTestPiece(Piece p, Case c, String[] gameMove) {
     if (!castle) {
         //gameMove = append(gameMove,init + "." + end);
         if (c.asPieceOn) {
-            gameMove = append(gameMove, p.number +"." + c.number +"." + pieces.get(getPieceByCase(c)));
+            gameMove = append(gameMove, p.number +"." + c.number +"." + pieces.get(getPieceByCase(c)).number);
         } else {
             gameMove = append(gameMove, p.number + "." + c.number);
         }

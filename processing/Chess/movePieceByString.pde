@@ -77,7 +77,7 @@ public void movePieceByString_old(String string) {
 public void movePieceByString(String string) {
     //move one Piece accord the string given in arguement
     //if not a caste move
-    println("string : "+string);
+    //println("string : "+string);
     if (!split(string, ".")[1].equals("castle")) {
 
         //String init_piece = split(string, ".")[0];
@@ -94,7 +94,7 @@ public void movePieceByString(String string) {
         //Case c_init = cases.get(getCaseByName(init_piece));
         //Piece piece = pieces.get(getPieceByCase(c_init));
         //Case c_final = cases.get(getCaseByName(final_case));
-        println(piece.type + " " + c_final.name);
+        //println(piece.type + " " + c_final.name);
 
         //if their is no piece in the case
         if (!c_final.asPieceOn()) {

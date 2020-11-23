@@ -224,7 +224,7 @@ class AI {
             //gameTestMove[0] += "|" + init + "." +"castle" + "." + end;
             gameTestMove = append(gameTestMove, p.number + "." +"castle" + "." + c.number);
         }
-        println("addTestMove");
+        //println("addTestMove");
 
         return gameTestMove;
     }

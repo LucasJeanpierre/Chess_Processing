@@ -28,7 +28,7 @@ void setup() {
     board = new Board();
     ai = new AI(1);
     //String[] gameMove = loadStrings("game.txt");
-    //gameMove[0] = "_";
+    //gameMove[0] = "20.36";
     //saveStrings("game.txt", gameMove);
     reset();
     moveFile();
