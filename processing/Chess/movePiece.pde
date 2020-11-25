@@ -210,7 +210,7 @@ public void moveTestPiece(Piece p, Case c, String[] gameMove) {
         }
     } else {
         //gameMove = append(gameMove,init + "." +"castle" + "." + end);
-        gameMove = append(gameMove, p.number + "castle" + c.number);
+        gameMove = append(gameMove, p.number + "." + "castle" + "." + c.number);
     }
 
     if (gameMove.length > 0) {
